@@ -1,0 +1,8 @@
+
+
+
+server:
+  port: 9696
+  
+spring:  h2:    console:      path: /h2      enabled: true
+      

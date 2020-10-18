@@ -1,0 +1,43 @@
+Hibernate: 
+    
+    create table course (
+       cid bigint not null,
+        cost integer not null,
+        course_name varchar(255),
+        primary key (cid)
+    ) engine=InnoDB
+Hibernate: 
+    
+    create table hibernate_sequence (
+       next_val bigint
+    ) engine=InnoDB
+Hibernate: 
+    
+    insert into hibernate_sequence values ( 1 )
+Hibernate: 
+    
+    insert into hibernate_sequence values ( 1 )
+Hibernate: 
+    
+    insert into hibernate_sequence values ( 1 )
+Hibernate: 
+    
+    create table passport (
+       pid bigint not null,
+        number varchar(255),
+        primary key (pid)
+    ) engine=InnoDB
+Hibernate: 
+    
+    create table student (
+       sid bigint not null,
+        name varchar(255),
+        passport_pid bigint,
+        primary key (sid)
+    ) engine=InnoDB
+Hibernate: 
+    
+    alter table student 
+       add constraint FKopjg8mv7oxvfdyedsqcq4iodg 
+       foreign key (passport_pid) 
+       references passport (pid)
