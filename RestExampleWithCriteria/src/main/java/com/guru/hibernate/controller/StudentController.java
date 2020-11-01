@@ -5,10 +5,11 @@ import java.util.Optional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,37 +17,33 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.Gson;
 import com.guru.hibernate.custom.StudentNotFoundExcepion;
 import com.guru.hibernate.pojo.Student;
-import com.guru.hibernate.repository.StudentRepository;
+import com.guru.service.StudentService;
 
 @RestController
-@Transactional
+@RequestMapping("/student")
 public class StudentController {
-	@Autowired StudentRepository repo;
+	@Autowired StudentService studentsservice;
 	Gson gson = new Gson();
 	Logger logger = LoggerFactory.getLogger(this.getClass());
+	
 	
 	@PostMapping("/save")
 	public Student save(@RequestBody Student student) {
 		logger.info("Student : {} ",student);
-		repo.save(student);
+		studentsservice.save(student);
 		return student;
 		
 	}
 	
-	@GetMapping("/id")
-	public @ResponseBody Student findById(@RequestParam Long id) throws StudentNotFoundExcepion {
+	@GetMapping("/{id}")
+	public @ResponseBody Student findById(@PathVariable Long id) throws StudentNotFoundExcepion {
 		logger.info("id : {} ",id);
-		Optional<Student> studentoOptional = repo.findById(id);
-		if(!studentoOptional.isPresent()) {
+		Student studentoOptional = studentsservice.findById(id);
+		if(studentoOptional == null) {
 			throw new StudentNotFoundExcepion();
 		}
-		
-		Student std = studentoOptional.get();
-		logger.info("Student before getting passport :{}",std.getName());
-		logger.info("Student passport details  :{}",std.getPassport());
-		
-		
-		return std;
+		logger.info("Student :{}",studentoOptional);
+		return studentoOptional;
 		
 	}
 }

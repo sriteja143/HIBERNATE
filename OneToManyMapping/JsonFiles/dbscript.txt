@@ -1,0 +1,62 @@
+Hibernate: 
+    
+    create table course (
+       cid bigint not null,
+        cost integer not null,
+        course_name varchar(255),
+        primary key (cid)
+    ) engine=InnoDB
+Hibernate: 
+    
+    create table hibernate_sequence (
+       next_val bigint
+    ) engine=InnoDB
+Hibernate: 
+    
+    insert into hibernate_sequence values ( 1 )
+Hibernate: 
+    
+    insert into hibernate_sequence values ( 1 )
+Hibernate: 
+    
+    insert into hibernate_sequence values ( 1 )
+Hibernate: 
+    
+    create table passport (
+       pid bigint not null,
+        number varchar(255),
+        primary key (pid)
+    ) engine=InnoDB
+2020-11-01 11:13:27.843  WARN 5216 --- [         task-1] o.h.t.s.i.ExceptionHandlerLoggedImpl     : GenerationTarget encountered exception accepting command : Error executing DDL "
+    create table passport (
+       pid bigint not null,
+        number varchar(255),
+        primary key (pid)
+    ) engine=InnoDB" via JDBC Statement
+
+org.hibernate.tool.schema.spi.CommandAcceptanceException: Error executing DDL "
+    create table passport (
+       pid bigint not null,
+        number varchar(255),
+        primary key (pid)
+    ) engine=InnoDB" via JDBC Statement
+Hibernate: 
+    
+    create table student (
+       sid bigint not null,
+        name varchar(255),
+        pid bigint,
+        primary key (sid)
+    ) engine=InnoDB
+Hibernate: 
+    
+    alter table course 
+       add constraint FKia55l8u64nk98w5n6mc2wesab 
+       foreign key (cid) 
+       references student (sid)
+Hibernate: 
+    
+    alter table student 
+       add constraint FKpxoosro1pgl1453bkg7x0nv2h 
+       foreign key (pid) 
+       references passport (pid)

@@ -1,18 +1,19 @@
 package com.guru.hibernate.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Student implements Serializable  {
+public class Student implements Serializable {
 	/**
 	 * 
 	 */
@@ -21,11 +22,8 @@ public class Student implements Serializable  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long sid;
-	
-	@OneToOne(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
-	@JoinColumn(name = "pid")
-	private Passport passport;
-	
+
+
 	private String name;
 
 	public long getSid() {
@@ -36,13 +34,6 @@ public class Student implements Serializable  {
 		this.sid = sid;
 	}
 
-	public Passport getPassport() {
-		return passport;
-	}
-
-	public void setPassport(Passport passport) {
-		this.passport = passport;
-	}
 
 	public String getName() {
 		return name;
@@ -52,14 +43,22 @@ public class Student implements Serializable  {
 		this.name = name;
 	}
 
+
+
+
 	@Override
 	public String toString() {
-		return "Student [sid=" + sid + ", passport=" + passport + ", name=" + name + "]";
+		return "Student [sid=" + sid + ", name=" + name + "]";
+	}
+
+	public Student(long sid, String name) {
+		super();
+		this.sid = sid;
+		this.name = name;
 	}
 
 	public Student() {
 		super();
 	}
-	
-	
+
 }

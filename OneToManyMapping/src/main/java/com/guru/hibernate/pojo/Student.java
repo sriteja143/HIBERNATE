@@ -1,18 +1,19 @@
 package com.guru.hibernate.pojo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Student implements Serializable  {
+public class Student implements Serializable {
 	/**
 	 * 
 	 */
@@ -21,11 +22,18 @@ public class Student implements Serializable  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long sid;
-	
-	@OneToOne(cascade = CascadeType.ALL ,fetch = FetchType.LAZY)
+
+	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "pid")
 	private Passport passport;
-	
+
+	@OneToMany(targetEntity = Course.class, cascade = CascadeType.ALL)
+	@JoinColumn(name = "cid")
+	private List<Course> courses;
+
+//	@OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Course> courses;
+
 	private String name;
 
 	public long getSid() {
@@ -52,14 +60,29 @@ public class Student implements Serializable  {
 		this.name = name;
 	}
 
+	public Student(long sid, Passport passport, List<Course> courses, String name) {
+		super();
+		this.sid = sid;
+		this.passport = passport;
+		this.courses = courses;
+		this.name = name;
+	}
+
+	public List<Course> getCourses() {
+		return courses;
+	}
+
+	public void setCourses(List<Course> courses) {
+		this.courses = courses;
+	}
+
 	@Override
 	public String toString() {
-		return "Student [sid=" + sid + ", passport=" + passport + ", name=" + name + "]";
+		return "Student [sid=" + sid + ", passport=" + passport + ", courses=" + courses + ", name=" + name + "]";
 	}
 
 	public Student() {
 		super();
 	}
-	
-	
+
 }

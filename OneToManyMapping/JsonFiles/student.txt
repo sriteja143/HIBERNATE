@@ -1,0 +1,17 @@
+Request for save method
+----------------------------------------------------------------------------------------------------
+{
+    "sid": 0,
+    "passport": {
+        "pid": 0,
+        "number": "E123456"
+    },
+    "courses": [{
+            "cid": 0,
+            "courseName": "Springboot",
+            "cost": 1000
+        }
+    ],
+    "name": "GURU"
+}
+

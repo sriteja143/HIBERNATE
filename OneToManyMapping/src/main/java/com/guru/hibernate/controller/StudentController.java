@@ -25,6 +25,7 @@ public class StudentController {
 	Gson gson = new Gson();
 	Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	
 	@PostMapping("/save")
 	public Student save(@RequestBody Student student) {
 		logger.info("Student : {} ",student);
